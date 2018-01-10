@@ -1,0 +1,413 @@
+<form class="form-horizontal">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-9" style="margin: 0 auto; padding-top: 15px;">
+        <div class="card">
+          <div class="card-header">
+            <strong>Process Information<br /></strong>
+            <small style="color: red">Please fill in this information to help Gosco Valves determine the severity of your application.</small>
+          </div>
+          <div class="card-block">
+            <div class="form-group">
+              <label mdTooltip="Media">
+                Media
+              </label>
+              <div class="input-group">
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="processes.media.Corrosive" [ngModelOptions]="{standalone: true}" checked>
+                    Corrosive
+                  </label>
+                </div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="processes.media.Abrasive" [ngModelOptions]="{standalone: true}" checked>
+                    Abrasive
+                  </label>
+                </div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="processes.media.HardensClogs" [ngModelOptions]="{standalone: true}" checked>
+                    Hardens/Clogs
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+                <label mdTooltip="Temperature">
+                  Temperature
+                </label>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label>Temperature Units</label>
+                    <select class="form-control" [(ngModel)]="processes.temperature.units" [ngModelOptions]="{standalone: true}">
+                      <option value="F˚">
+                        F˚
+                      </option>
+                      <option value="C˚">
+                        C˚
+                      </option>
+                      <option value="K˚">
+                        K˚
+                      </option>
+                      <option value="R˚">
+                        R˚
+                      </option>
+                      <option value="Other">
+                        Other
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label>Operating Temperature</label>
+                    <input class="form-control" [(ngModel)]="processes.temperature.operating" [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="col-md-4">
+                    <label>Maximum Temperature</label>
+                    <input class="form-control" [(ngModel)]="processes.temperature.max" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+              </div>
+            <div class="form-group">
+                <label mdTooltip=
+                         "Pressure">
+                  Pressure
+                </label>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label>Pressure Units</label>
+                    <select class="form-control" [(ngModel)]="processes.pressure.units" [ngModelOptions]="{standalone: true}">
+                      <option value="psi-g">
+                        psi-g
+                      </option>
+                      <option value="psi-a">
+                        psi-a
+                      </option>
+                      <option value="bar-g">
+                        bar-g
+                      </option>
+                      <option value="bar-a">
+                        bar-a
+                      </option>
+                      <option value="KPa">
+                        KPa
+                      </option>
+                      <option value="MPa">
+                        MPa
+                      </option>
+                      <option value="Other">
+                        Other
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label>Operating Pressure</label>
+                    <input class="form-control" [(ngModel)]="processes.pressure.operating" [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="col-md-4">
+                    <label>Maximum Pressure</label>
+                    <input class="form-control" [(ngModel)]="processes.pressure.max" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+              </div>
+            <div class="form-group">
+                <label mdTooltip=
+                         "Number of cycles">
+                  Number of cycles
+                </label>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Year</label>
+                    <input class="form-control" [(ngModel)]="processes.numberOfCycles.Year" [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="col-md-3">
+                    <label>Day</label>
+                    <input class="form-control" [(ngModel)]="processes.numberOfCycles.Day" [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="col-md-3">
+                    <label>Hour</label>
+                    <input class="form-control" [(ngModel)]="processes.numberOfCycles.Hour" [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="col-md-3">
+                    <label>Minute</label>
+                    <input class="form-control" [(ngModel)]="processes.numberOfCycles.Minute" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+              </div>
+            <div class="form-group">
+              <label>Area Classification</label>
+              <select class="form-control" [(ngModel)]="processes.areaClassification" [ngModelOptions]="{standalone: true}">
+                <option value="Standard">
+                  Standard
+                </option>
+                <option value="Explosion Proof">
+                  Explosion Proof
+                </option>
+                <option value="Intrinsically Safe">
+                  Intrinsically Safe
+                </option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <strong>Existing Valve Information<br /></strong>
+            <small style="color: red">Please fill in this information so we can better understand your existing issues.</small>
+          </div>
+          <div class="card-block">
+            <div class="form-group">
+              <label mdTooltip="Type">
+                Type
+              </label>
+              <div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="options.Type.Ball" [ngModelOptions]="{standalone: true}" checked>
+                    Ball
+                  </label>
+                </div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="options.Type.Butterfly" [ngModelOptions]="{standalone: true}" checked>
+                    Butterfly
+                  </label>
+                </div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="options.Type.Globe" [ngModelOptions]="{standalone: true}" checked>
+                    Globe
+                  </label>
+                </div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="options.Type.other" [ngModelOptions]="{standalone: true}" checked>
+                    Other
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Size/Port </label>
+              <select class="form-control" [(ngModel)]="options.Size" [ngModelOptions]="{standalone: true}">
+                <option value="1/2&quot; F.P.">
+                  1/2" F.P.
+                </option>
+                <option value="3/4&quot; S.P.">
+                  3/4" S.P.
+                </option>
+                <option value="3/4&quot; F.P.">
+                  3/4" F.P.
+                </option>
+                <option value="1&quot; S.P.">
+                  1" S.P.
+                </option>
+                <option value="1&quot; F.P.">
+                  1" F.P.
+                </option>
+                <option value="1.25&quot; S.P.">
+                  1.25" S.P.
+                </option>
+                <option value="1.25&quot; F.P.">
+                  1.25" F.P.
+                </option>
+                <option value="1.5&quot; S.P.">
+                  1.5" S.P.
+                </option>
+                <option value="1.5&quot; F.P.">
+                  1.5" F.P.
+                </option>
+                <option value="2&quot; S.P.">
+                  2" S.P.
+                </option>
+                <option value="2&quot; F.P.">
+                  2" F.P.
+                </option>
+                <option value="2.5&quot; S.P.">
+                  2.5" S.P.
+                </option>
+                <option value="2.5&quot; F.P.">
+                  2.5" F.P.
+                </option>
+                <option value="3&quot; S.P.">
+                  3" S.P.
+                </option>
+                <option value="3&quot; F.P.">
+                  3" F.P.
+                </option>
+                <option value="4&quot; S.P.">
+                  4" S.P.
+                </option>
+                <option value="4&quot; F.P.">
+                  4" F.P.
+                </option>
+                <option value="6&quot; S.P.">
+                  6" S.P.
+                </option>
+                <option value="6&quot; F.P.">
+                  6" F.P.
+                </option>
+                <option value="8&quot; S.P.">
+                  8" S.P.
+                </option>
+                <option value="8&quot; F.P.">
+                  8" F.P.
+                </option>
+                <option value="10&quot; S.P.">
+                  10" S.P.
+                </option>
+                <option value="10&quot; F.P.">
+                  10" F.P.
+                </option>
+                <option value="12&quot; S.P">
+                  12" S.P
+                </option>
+                <option value="12&quot; F.P">
+                  12" F.P
+                </option>
+                <option value="14&quot; S.P">
+                  14" S.P
+                </option>
+                <option value="14&quot; F.P">
+                  14" F.P
+                </option>
+                <option value="16&quot; S.P">
+                  16" S.P
+                </option>
+                <option value="16&quot; F.P">
+                  16" F.P
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>End Connections</label>
+              <select class="form-control" [(ngModel)]="options.EndConnections" [ngModelOptions]="{standalone: true}">
+                <option value="NPT">
+                  NPT
+                </option>
+                <option value="Socket Weld">
+                  Socket Weld
+                </option>
+                <option value="Butt Weld">
+                  Butt Weld
+                </option>
+                <option value="150# Flanged">
+                  150# Flanged
+                </option>
+                <option value="300# Flanged">
+                  300# Flanged
+                </option>
+                <option value="600# Flanged">
+                  600# Flanged
+                </option>
+                <option value="900# Flanged">
+                  900# Flanged
+                </option>
+                <option value="1500# Flanged">
+                  1500# Flanged
+                </option>
+                <option value="2500# Flanged">
+                  2500# Flanged
+                </option>
+                <option value="4500# Flanged">
+                  4500# Flanged
+                </option>
+                <option value="Greylock">
+                  Greylock
+                </option>
+                <option value="Swagelok">
+                  Swagelok
+                </option>
+                <option value="Other">
+                  Other
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label mdTooltip="Drive Options">
+                Drive Options
+              </label>
+              <div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="options.drive.Gearbox" [ngModelOptions]="{standalone: true}" checked>
+                    Gearbox/Tee Handle
+                  </label>
+                </div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="options.drive.DoubleActingActuator" [ngModelOptions]="{standalone: true}" checked>
+                    Double Acting Actuator
+                  </label>
+                </div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="options.drive.SpringReturnActuator" [ngModelOptions]="{standalone: true}" checked>
+                    Spring Return Actuator
+                  </label>
+                </div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="options.drive.LimitSwitch" [ngModelOptions]="{standalone: true}" checked>
+                    Limit Switch
+                  </label>
+                </div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="options.drive.Solenoid" [ngModelOptions]="{standalone: true}" checked>
+                    Solenoid
+                  </label>
+                </div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="options.drive.Positioner" [ngModelOptions]="{standalone: true}" checked>
+                    Positioner
+                  </label>
+                </div>
+                <div class="form-check input-group">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="options.drive.Other" [ngModelOptions]="{standalone: true}" checked>
+                    Other
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <textarea rows="9" class="form-control" [(ngModel)]="options.otherDesc" [ngModelOptions]="{standalone: true}"
+                          placeholder="Please describe how the existing valve fails (Packing leaks, Seat leakage, Does not close fully, etc)"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <strong>Contact</strong>
+          </div>
+          <div class="card-block">
+            <form action="" method="post" class="form-horizontal">
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input type="text" id="input1-group1" name="input1-group1" class="form-control" placeholder="Name">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <input type="email" id="input2-group1" name="input2-group1" class="form-control" placeholder="Email">
+                    <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <button class="btn btn-block btn-primary" (click)="submitinfo()"><i class="fa fa-plus-circle" ></i> Submit</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,309 @@
+<div class="animated fadeIn"  style="padding-top: 30px">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card card-inverse card-info" style="height: 30vh">
+        <div class="card-block" style="text-align: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;">
+          <div class="display-4" style="font-size: 2rem">Initial Purchase Price of {{Valve_Multi}} Valve Assembly(s) </div>
+          <div class="display-3" mdTooltip="Typically customers just look at the purchase price of the valve and actuator assembly, when comparing products.">
+            {{(Valve_Cost + Actuator_Cost) * Valve_Multi | currency:'USD':true:'1.2-2'}}
+            <i class="fa fa-info-circle" style="font-size: 50%"></i>
+          </div>
+          <small class="text-muted">Capital Cost:  50 Valve/Actuator Assembly(s) Only</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card card-inverse card-primary" style="height: 30vh">
+        <div class="card-block" style="text-align: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;">
+          <div class="display-4" style="font-size: 2rem">PERCEIVED Five (5) Year Cost of Ownership</div>
+          <div class="display-3" mdTooltip="The PERCEIVED Cost of Ownership includes the following:&#13;
+
+          Initial Valve Assembly(s)&#13;
+          Spare Valve Assembly(s)&#13;
+          (10% of the initial valve assembly purchase price) Replacement Valve(s) (New valves (only), to replace unrepairable valves) Repair Kits (Based on monthly MTBF, minus replacement valves)&#13;
+
+          Note:  None of the hidden costs are included in this calculation, and the calculation assumes zero inflation.
+          ">
+            {{captital | currency:'USD':true:'1.2-2'}}
+            <i class="fa fa-info-circle" style="font-size: 50%"></i>
+          </div>
+          <small class="text-muted">
+            {{Valve_Multi}} Valve Assembly(s),
+            {{Valve_Multi / 10}} Spare Valve Assembly(s),
+            {{NumberOfNewValve(5, Valve_Multi, constants.failPercent)}} Replacement Valve(s),
+            {{NumberOfRepair(5, Valve_Multi, constants.failPercent)}} Repair Kits
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card card-inverse card-danger" style="height: 30vh; border: 0px">
+        <div class="card-block" style="text-align: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding-bottom: 0px;
+        background-color: transparent">
+          <div class="display-4" style="font-size: 2rem">This is your REAL Cost of Ownership over a Five (5) Year Period</div>
+          <div class="display-3" mdTooltip="The PERCEIVED Cost of Ownership PLUS all the 'Hidden Costs'
+
+          1).  Removal/re-installation of valves
+          2).  Generation of purchase orders
+          3).  Decontamination of valves
+          4).  Packaging and shipping
+          5).  Testing of repaired valves
+          6).  Storing spare valves
+          7).  Removal/re-installation of insulation 8).  Inflation 9).  Other costs
+
+          Note:  The monthly MTBF is the major contributor to the repair and hidden costs.
+          ">
+            {{TotalCostofOwnership(5)| currency:'USD':true:'1.2-2'}}
+            <i class="fa fa-info-circle" style="font-size: 50%"></i>
+          </div>
+          <small class="text-muted">
+            {{Valve_Multi}} Valve Assembly(s),
+            {{Valve_Multi / 10}} Spare Valve Assembly(s),
+            {{NumberOfNewValve(5, Valve_Multi, constants.failPercent)}} Replacement Valve(s),
+            {{NumberOfRepair(5, Valve_Multi, constants.failPercent)}} Repair Kits plus the "Hidden Costs"
+          </small>
+        </div>
+        <div class="row">
+          <div class="col-lg-6" style="padding-right: 0px">
+            <button type="button" style="border-color: white; border-left: 0px" href="#details" class="btn btn-danger btn-block" (click)="scrollToDetails()">See Details/ Modify Costs </button>
+          </div>
+          <div class="col-lg-6" style="padding-left: 0px">
+            <button type="button" style="border-color: white; border-right: 0px" class="btn btn-danger btn-block col-lg-6" routerLinkActive="active" [routerLink]="['/ownership-cost/ownership-inform']">See Cost of Ownership with Gosco Valves</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card" style="background-color: transparent">
+        <div class="card-header" style="background-color: transparent"
+             mdTooltip=
+               "This calculation is restricted to valves that are identical.
+                           If you have multiple valves, we will calculate the cost or ownership
+                           for each valve assembly">
+            Number of Valves: {{constants.valveNumber}}
+        </div>
+        <div class="card-header" style="background-color: transparent; padding-top: 0vh; padding-bottom: 0vh">
+          <md-slider
+            color = "warn"
+            [min]="1"
+            [thumb-label]="true"
+            [(ngModel)]="constants.valveNumber"
+            [ngModelOptions]="{standalone: true}"
+            (change)="updateValveNumber()"
+            style="width: 100%; padding-top: 0vh; padding-bottom: 0vh">
+          </md-slider>
+        </div>
+        <div>
+          <div class="card-header" style="background-color: transparent">
+            Monthly Mean Time Between Failures <small>(MTBF)</small>: {{constants.MTBF}}
+          </div>
+          <div class="card-header" style="background-color: transparent; padding-top: 0vh; padding-bottom: 0vh"
+               mdTooltip="The MTBF is the single most important factor in your overall “Cost of Ownership”.  A cheap valve with a short MTBF will cost SIGNIFICANTLY more than an expensive valve with a long MTBF.">
+            <md-slider
+              color = "warn"
+              [min]="1"
+              [thumb-label]="true"
+              [(ngModel)]="constants.MTBF"
+              [ngModelOptions]="{standalone: true}"
+              aria-label="MTBF"
+              (change)="getInfo()"
+              style="width: 100%; padding-top: 0vh; padding-bottom: 0vh">
+            </md-slider>
+          </div>
+        </div>
+        <div>
+          <div class="card-header" style="background-color: transparent"
+               mdTooltip="Typically valves can be repaired three times before they need to be replaced">
+            Number of times the valve can be repaired before it needs to be replaced: {{constants.failPercent}}
+          </div>
+          <div class="card-header" style="background-color: transparent; padding-top: 0vh; padding-bottom: 0vh">
+            <md-slider
+              color = "warn"
+              [min]="1"
+              [thumb-label]="true"
+              [(ngModel)]="constants.failPercent"
+              [ngModelOptions]="{standalone: true}"
+              aria-label="failPercent"
+              (change)="getInfo()"
+              style="width: 100%; padding-top: 0vh; padding-bottom: 0vh">
+            </md-slider>
+          </div>
+        </div>
+        <div>
+          <div class="card-header" style="background-color: transparent"
+               mdTooltip="This is the replacement cost of a bare shaft valve only (no accessories)">
+            Cost of Valve: {{Valve_Cost}}
+          </div>
+          <div class="card-header" style="background-color: transparent; padding-top: 0vh; padding-bottom: 0vh">
+            <md-slider
+              color = "warn"
+              [min]="1000"
+              [max] = '20000'
+              [thumb-label]="true"
+              [(ngModel)]="Valve_Cost"
+              [ngModelOptions]="{standalone: true}"
+              aria-label="valveCost"
+              (change)="valveCostChange()"
+              style="width: 100%; padding-top: 0vh; padding-bottom: 0vh">
+            </md-slider>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" id="pdfprint" name="details">
+    <!--/.col-->
+    <div class="col-lg-6" id="pdfprintp1">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Cost of Ownership
+        </div>
+        <div class="card-block">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>Types of Cost</th>
+              <th>Cost</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of costs"
+                [mdTooltip]="item.desc"
+                mdTooltipPosition="right">
+              <td scope="row" >{{item.type}}</td>
+              <td><input [(ngModel)] ="item.amount"
+                         [ngModelOptions]="{standalone: true}"
+                         (change)="getInfo()"/></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6" id="pdfprintp2">
+      <div class="card">
+        <div class="card-header">
+          Amount of Spares Needed
+        </div>
+        <tabset>
+          <tab heading="3 Years">
+            <div class="card-block">
+              <ul class="horizontal-bars type-2">
+                <li>
+                  <span class="title">Number of Replacement Valve(s) required</span>
+                  <span class="value">{{NumberOfNewValve(3, Valve_Multi, constants.failPercent)}}</span>
+                </li>
+                <li>
+                  <span class="title">Number of Repair Kits required</span>
+                  <span class="value">{{NumberOfRepair(3, Valve_Multi, constants.failPercent)}}</span>
+                </li>
+              </ul>
+            </div>
+          </tab>
+          <tab heading="4 Years">
+            <div class="card-block">
+              <ul class="horizontal-bars type-2">
+                <li>
+                  <span class="title">Number of Replacement Valve(s) required</span>
+                  <span class="value">{{NumberOfNewValve(4, Valve_Multi, constants.failPercent)}}</span>
+                </li>
+                <li>
+                  <span class="title">Number of Repair Kits required</span>
+                  <span class="value">{{NumberOfRepair(4, Valve_Multi, constants.failPercent)}}</span>
+                </li>
+              </ul>
+            </div>
+          </tab>
+          <tab heading="5 Years">
+            <div class="card-block">
+              <ul class="horizontal-bars type-2">
+                <li>
+                  <span class="title">Number of Replacement Valve(s) required</span>
+                  <span class="value">{{NumberOfNewValve(5, Valve_Multi, constants.failPercent)}}</span>
+                </li>
+                <li>
+                  <span class="title">Number of Repair Kits required</span>
+                  <span class="value">{{NumberOfRepair(5, Valve_Multi, constants.failPercent)}}</span>
+                </li>
+              </ul>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+      <div class="card">
+        <div class="card-block">
+          <ul class="horizontal-bars type-2">
+            <li>
+              <span class="title">Total Cost of Ownership (3 years)</span>
+              <span class="value">{{TotalCostofOwnership(3)| currency:'USD':true:'1.2-2'}}</span>
+            </li>
+            <li>
+              <span class="title">Total Cost of Ownership (4 years)</span>
+              <span class="value">{{TotalCostofOwnership(4)| currency:'USD':true:'1.2-2'}}</span>
+            </li>
+            <li>
+              <span class="title">Total Cost of Ownership (5 years)</span>
+              <span class="value">{{TotalCostofOwnership(5)| currency:'USD':true:'1.2-2'}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-block">
+          <ul class="horizontal-bars type-2">
+            <li>
+              <span class="title">Monthly Cost of Ownership (3 years)</span>
+              <span class="value">{{MonthlyCostofOwnership(3)| currency:'USD':true:'1.2-2'}}</span>
+            </li>
+            <li>
+              <span class="title">Monthly Cost of Ownership (4 years)</span>
+              <span class="value">{{MonthlyCostofOwnership(4)| currency:'USD':true:'1.2-2'}}</span>
+            </li>
+            <li>
+              <span class="title">Monthly Cost of Ownership (5 years)</span>
+              <span class="value">{{MonthlyCostofOwnership(5)| currency:'USD':true:'1.2-2'}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-block">
+          <ul class="horizontal-bars type-2">
+            <li>
+              <span class="title">Monthly Cost per Valve Position (3 years)</span>
+              <span class="value">{{MonthlyCostPerPosition(3, 50)| currency:'USD':true:'1.2-2'}}</span>
+            </li>
+            <li>
+              <span class="title">Monthly Cost per Valve Position (4 years)</span>
+              <span class="value">{{MonthlyCostPerPosition(4, 50)| currency:'USD':true:'1.2-2'}}</span>
+            </li>
+            <li>
+              <span class="title">Monthly Cost per Valve Position (5 years)</span>
+              <span class="value">{{MonthlyCostPerPosition(5, 50)| currency:'USD':true:'1.2-2'}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!--/.col-->
+    <!--/.col-->
+  </div>
+  <div class="row">
+    <div class="card col-lg-12" style="background-color: transparent; border-color: transparent">
+      <button type="button" class="btn btn-outline-danger btn-block" (click)="download()">Summary <small>click to download</small></button>
+    </div>
+  </div>
+</div>

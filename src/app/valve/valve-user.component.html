@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-header">
+    Valves
+  </div>
+  <div class="form-group">
+    <select multiple class="form-control">
+      <option *ngFor="let valve of valves">
+        {{valve.serial}}
+      </option>
+    </select>
+  </div>
+</div>

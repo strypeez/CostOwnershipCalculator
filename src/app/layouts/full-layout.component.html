@@ -1,0 +1,134 @@
+<header class="app-header navbar">
+  <button class="navbar-toggler d-lg-none" type="button" appMobileSidebarToggler>&#9776;</button>
+  <a class="navbar-brand" href="#"></a>
+  <ul class="nav navbar-nav d-md-down-none">
+    <li class="nav-item">
+      <a class="nav-link navbar-toggler" href="#" appSidebarToggler>&#9776;</a>
+    </li>
+    <li class="nav-item px-3">
+      <a class="nav-link" href="#">Dashboard</a>
+    </li>
+    <li class="nav-item px-3 dropdown" dropdown (onToggle)="toggled($event)">
+      <a href class="nav-link dropdown-toggle" dropdownToggle (click)="false">
+        <span class="d-md-down-none">Settings</span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+        <a class="dropdown-item" href="#" routerLinkActive="active" [routerLink]="['/account/profile']"><i class="fa fa-user"></i> Profile</a>
+        <a class="dropdown-item" href="#" routerLinkActive="active" [routerLink]="['/account/account-settings']"><i class="fa fa-wrench"></i> Account Settings</a>
+        <a class="dropdown-item" href="#" routerLinkActive="active" [routerLink]="['/valve/add-valve']"><i class="fa fa-wrench"></i> Add valve</a>
+        <a class="dropdown-item" href="#" routerLinkActive="active" [routerLink]="['/ownership-cost/ownership-question']"><i class="fa fa-usd"></i> Questions Settings</a>
+      </div>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav ml-auto px-3">
+    <li class="nav-item px-3">
+      <a class="nav-link" href="#" (click)="logout()" routerLink="/auth">Logout</a>
+    </li>
+  </ul>
+</header>
+<!--Nav Bar -->
+<div class="app-body">
+  <div class="sidebar">
+    <nav class="sidebar-nav">
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link"><i class="icon-speedometer"></i> Dashboard</a>
+        </li>
+        <li class="divider"></li>
+        <li class="nav-title">
+          Info
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><i class="icon-pie-chart"></i> About</a>
+        </li>
+        <li class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+          <a class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle><i class="icon-notebook"></i> Brochures</a>
+          <ul class="nav-dropdown-items">
+            <li class="nav-item">
+              <a class="nav-link" href="https://cl.ly/3E0E2c1z1n39"><i class="icon-puzzle"></i> “M” Class</a>
+            <li class="nav-item">
+              <a class="nav-link" href="https://cl.ly/1J2G1g2u1h3z "><i class="icon-puzzle"></i> “F” Class</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://cl.ly/0z031u3r3V3N1w270W1P"><i class="icon-puzzle"></i> “S” Class</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+          <a class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle><i class="icon-layers"></i> PowerPoints</a>
+          <ul class="nav-dropdown-items">
+            <li class="nav-item">
+              <a class="nav-link" href="https://cl.ly/1j0t0Q0B452Q"><i class="icon-puzzle"></i> “M” Class</a>
+            <li class="nav-item">
+              <a class="nav-link" href="https://cl.ly/3w0x2U2Y1C0r"><i class="icon-puzzle"></i> “F” Class</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://cl.ly/0S2S3U1q080N"><i class="icon-puzzle"></i> “S” Class</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://cl.ly/153m3t3a330e"><i class="icon-puzzle"></i> Valves as a Service</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+          <a class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle><i class="icon-screen-tablet"></i> Technical Data</a>
+          <ul class="nav-dropdown-items">
+            <li class="nav-item">
+              <a class="nav-link"><i class="icon-doc"></i> Hardening Methods</a>
+            <li class="nav-item">
+              <a class="nav-link"><i class="icon-doc"></i> Arcuate Cut</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"><i class="icon-doc"></i> NACE Materials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"><i class="icon-doc"></i> Hardness Chart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"><i class="icon-doc"></i> Devlon Brochure</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"><i class="icon-doc"></i> Threaded Flanges</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"><i class="icon-doc"></i> Wetted Components</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"><i class="icon-doc"></i> Stainless Steels</a>
+            </li>
+          </ul>
+        </li>
+        <li class="divider"></li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" routerLinkActive="active" [routerLink]="['/ownership-cost/ownership-form']"><i class="icon-calculator"></i> Cost of Ownership</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Main content -->
+  <main class="main">
+
+    <!-- Breadcrumb -->
+    <!--<ol class="breadcrumb">-->
+      <!--<app-breadcrumbs></app-breadcrumbs>-->
+      <!--&lt;!&ndash; Breadcrumb Menu&ndash;&gt;-->
+      <!--<li class="breadcrumb-menu d-md-down-none">-->
+        <!--<div class="btn-group" role="group" aria-label="Button group with nested dropdown">-->
+          <!--<a class="btn btn-secondary" href="#"><i class="icon-speech"></i></a>-->
+          <!--<a class="btn btn-secondary" [routerLink]="['/quote']"><i class="icon-graph"></i> &nbsp; Request a Quote</a>-->
+          <!--<a class="btn btn-secondary" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>-->
+        <!--</div>-->
+      <!--</li>-->
+    <!--</ol>-->
+
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div><!-- /.conainer-fluid -->
+  </main>
+
+</div>
+
+<footer class="app-footer">
+  <span class="float-right"><a class="float-right" href="http://www.goscovalves.com/">Gosco</a> &copy; 2017</span>
+</footer>

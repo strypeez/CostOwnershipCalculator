@@ -1,0 +1,163 @@
+<form class="form-horizontal">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-sm-9" style="margin: 0 auto; padding-top: 15px;">
+        <div [hidden]="!nextbutton">
+          <div class="card">
+            <div class="card-header">
+              <strong>General Information<br /></strong>
+              <small style="color: red">Note:  This cost of ownership calculation is based on identical valves.</small>
+            </div>
+            <div class="card-block">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-12">
+                    <label>
+                      How many identical valves are currently installed?
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input class="form-control" type="number" [(ngModel)]="cons.valveNumber" [ngModelOptions]="{standalone: true}"
+                         mdTooltip=
+                           "This calculation is restricted to valves that are identical.
+                           If you have multiple valves, we will calculate the cost or ownership
+                           for each valve assembly"
+                         mdTooltipPosition="right"
+                         autofocus/>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-12">
+                    <label>
+                      What is the monthly "Mean Time Between Failures"?
+                      <small> (MTBF)</small>
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input class="form-control" type="number" [(ngModel)]="cons.MTBF" [ngModelOptions]="{standalone: true}"
+                         mdTooltip="The MTBF is the single most important factor in your overall “Cost of Ownership”.  A cheap valve with a short MTBF will cost SIGNIFICANTLY more than an expensive valve with a long MTBF."
+                         mdTooltipPosition="right"
+                         autofocus/>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-12">
+                    <label>
+                      How many times can the current valve be repaired before it needs to be replaced?
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input class="form-control" type="number" [(ngModel)]="cons.failPercent" [ngModelOptions]="{standalone: true}"
+                         mdTooltip="Typically valves can be repaired three times before they need to be replaced"
+                         mdTooltipPosition="right"
+                         autofocus/>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-12">
+                    <label>
+                      What is your opportunity cost of capital by percentage?
+                    </label>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input class="form-control" type="number" [(ngModel)]="cons.opportunityCost" [ngModelOptions]="{standalone: true}"
+                         mdTooltip="If you were to invest your capital elsewhere, what return on investment would you receive?"
+                         mdTooltipPosition="right"
+                         autofocus/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-block btn-primary" [hidden]="!nextbutton" (click)="nextbutton = false"><i class="fa fa-plus-circle"></i> Next</button>
+        <div class="dropdown-divider" [hidden]="!nextbutton" style="border-color: transparent"></div>
+        <div [hidden]="nextbutton">
+          <div class="card">
+            <div class="card-header">
+              <strong>Current Cost of Ownership</strong>
+            </div>
+            <div class="card-block">
+              <div class="form-group" *ngFor="let item of answerdata | async ; let i = index" >
+                <div class="row">
+                  <div class="col-9">
+                    <label>
+                      What is the {{item.type}}?
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="input-prepend input-group">
+                      <span class="input-group-addon">$</span>
+                      <input type="number" #updatedata [placeholder]="item.amount" [value]="item.amount" id="default" name="default" class="form-control" (blur)="submitAnswer(item.$key, updatedata.value)"
+                             [mdTooltip]="item.desc"
+                             mdTooltipPosition="right">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-block btn-outline-primary" [hidden]="!addbutton" (click)="addbutton = false"><i class="fa fa-plus-circle"></i> Add</button>
+          <div class="dropdown-divider" [hidden]="!addbutton" style="border-color: transparent"></div>
+          <div class="card" [hidden]="addbutton">
+            <div class="card-header">
+              <strong>Add a Cost</strong>
+            </div>
+            <div class="card-block">
+              <form action="" method="post" class="form-horizontal">
+                <div class="form-group row">
+                  <label class="col-md-3 form-control-label">Cost Type</label>
+                  <div class="col-md-9">
+                    <input class="form-control" type="text" [(ngModel)]="newtype" [ngModelOptions]="{standalone: true}" placeholder="Please describe the cost.." autofocus/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-3 form-control-label">Amount</label>
+                  <div class="col-md-9">
+                    <div class="input-prepend input-group">
+                      <span class="input-group-addon">$</span>
+                      <input type="number" class="form-control" [(ngModel)]="newcost" [ngModelOptions]="{standalone: true}" placeholder="Enter the average cost..">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-9 form-control-label">One Time Cost</label>
+                  <div class="col-md-3">
+                    <label class="switch switch-3d switch-primary">
+                      <input type="checkbox" class="switch-input" [(ngModel)]="onetime" [ngModelOptions]="{standalone: true}" >
+                      <span class="switch-label"></span>
+                      <span class="switch-handle"></span>
+                    </label>
+                  </div>
+
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-9 form-control-label">Cost occurs every time the valve fails</label>
+                  <div class="col-md-3">
+                    <label class="switch switch-3d switch-primary">
+                      <input type="checkbox" class="switch-input" (change)="onetime = !onetime" [checked]="!onetime">
+                      <span class="switch-label"></span>
+                      <span class="switch-handle"></span>
+                    </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="card-footer">
+              <button type="button" class="btn btn-sm btn-danger" (click)="addForm()"><i class="fa fa-plus-circle"></i> Add</button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-block btn-primary" (click)="submitForm()" href="#" routerLinkActive="active" [routerLink]="['/ownership-cost/ownership-result']"><i class="fa fa-dot-circle-o"></i> Submit</button>
+        </div>
+      </div><!--/.col-->
+    </div><!--/.row-->
+  </div>
+</form>
